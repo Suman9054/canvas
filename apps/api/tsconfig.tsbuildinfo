@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/routes/v1/login-sing up/index.ts"],"version":"5.7.3"}
+{"root":["./src/index.ts","./src/routes/v1/login-sing up/index.ts","./src/routes/v1/room/index.ts","./src/routes/v1/save/index.ts"],"version":"5.7.3"}

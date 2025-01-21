@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
-
-const Form = () => {
+import { Link } from 'react-router';
+const SingupForm = () => {
   return (
     <StyledWrapper>
       <form className="form">
@@ -9,28 +9,28 @@ const Form = () => {
         <p className="message">Signup now and get full access to our app. </p>
         <div className="flex">
           <label>
-            <input required placeholder="First name" type="text" className="input" />
+            <input required placeholder="" type="text" className="input" />
             <span>Firstname</span>
           </label>
           <label>
-            <input required placeholder='Lastname' type="text" className="input" />
+            <input required placeholder='' type="text" className="input" />
             <span>Lastname</span>
           </label>
         </div>  
         <label>
-          <input required placeholder='Email' type="email" className="input" />
+          <input required placeholder='' type="email" className="input" />
           <span>Email</span>
         </label> 
         <label>
-          <input required placeholder='Pasword' type="password" className="input" />
+          <input required placeholder='' type="password" className="input" />
           <span>Password</span>
         </label>
         <label>
-          <input required placeholder='Confirm Pasword' type="password" className="input" />
+          <input required placeholder='' type="password" className="input" />
           <span>Confirm password</span>
         </label>
         <button className="submit">Submit</button>
-        <p className="signin">Already have an acount ? <a href="#">Signin</a> </p>
+        <p className="signin">Already have an acount ? <Link to="/v1/auth/login">Signin</Link> </p>
       </form>
     </StyledWrapper>
   );
@@ -168,4 +168,4 @@ const StyledWrapper = styled.div`
     }
   }`;
 
-export default Form;
+export default SingupForm;

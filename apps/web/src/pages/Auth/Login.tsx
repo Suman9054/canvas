@@ -1,10 +1,29 @@
 
 import styled from 'styled-components';
+import { Link } from 'react-router';
+import axios from 'axios';
+
+
+const onclick = (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const form = e.target as HTMLFormElement;
+  
+  try {
+    const email = (form[0] as HTMLInputElement).value;
+    const password = (form[1] as HTMLInputElement).value;
+    axios.get('http://localhost:3000/api/v1/login-signup/login', { params: { email, password } }).then((res) => {
+      console.log('res', res);
+    });
+    
+  } catch (error) {
+    console.log('error', error);
+  }
+};
 
 const LoginForm = () => {
   return (
     <StyledWrapper>
-      <form className="form_container">
+      <form className="form_container" onSubmit={onclick}>
         <div className="logo_container" />
         <div className="title_container">
           <p className="title">Login to your Account</p>
@@ -53,7 +72,7 @@ const LoginForm = () => {
           <span>Sign In with Google</span>
         </button>
 
-         <p className="signin"> <a href="#" className=''>Sing up</a> </p>
+         <p className="signin">Do not have an acount ? <Link to='/v1/auth/register' className='text-cyan-400'>Singup</Link> </p>
         <p className="note">Terms of use &amp; Conditions</p>
       </form>
     </StyledWrapper>

@@ -1,7 +1,8 @@
-import LoginForm from "./pages/Login"
-import img from './assets/pexels-jplenio-1103970.jpg'
 
-function App() {
+import { Outlet } from 'react-router'
+import img from "../assets/pexels-jplenio-1103970.jpg"
+
+function Auth() {
   return (
     <div className="relative h-screen w-full">
      
@@ -12,10 +13,10 @@ function App() {
       
       
       <div className="absolute inset-0 flex justify-center items-center ">
-        <LoginForm />
+        <Outlet />
       </div>
     </div>
   )
 }
 
-export default App
+export default Auth
