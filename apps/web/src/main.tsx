@@ -8,6 +8,7 @@ import LoginForm from './pages/Auth/Login'
 import SingupForm from './pages/Auth/Sing-up'
 import Auth from './Layout/Auth-Layout'
 import HomeIndex from './pages/Home/Home-Index'
+import Layout from './Layout/Room-Laout'
 
 
 createRoot(document.getElementById('root')!).render(
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')!).render(
        <Route path="/v1/auth/login" element={<LoginForm />} />
        <Route path="/v1/auth/register" element={<SingupForm />} />
       </Route>
+      <Route path="/room" element={<Layout />} />
     </Routes>
     </BrowserRouter>
    

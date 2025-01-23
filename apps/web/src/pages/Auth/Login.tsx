@@ -11,8 +11,16 @@ const onclick = (e: React.FormEvent<HTMLFormElement>) => {
   try {
     const email = (form[0] as HTMLInputElement).value;
     const password = (form[1] as HTMLInputElement).value;
-    axios.get('http://localhost:3000/api/v1/login-signup/login', { params: { email, password } }).then((res) => {
-      console.log('res', res);
+    axios.get('http://localhost:3000/api/v1/login-signup/login', {
+      params: {
+        email: email,
+        password: password
+      }
+    }).then((res) => {
+      if (res.status === 200) {
+        console.log('Login success' , res.data);
+
+      }
     });
     
   } catch (error) {
