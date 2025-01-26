@@ -11,6 +11,7 @@ import HomeIndex from './pages/Home/Home-Index'
 import Layout from './Layout/Room-Laout'
 
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>  
     <BrowserRouter>
@@ -26,7 +27,9 @@ createRoot(document.getElementById('root')!).render(
        <Route path="/v1/auth/login" element={<LoginForm />} />
        <Route path="/v1/auth/register" element={<SingupForm />} />
       </Route>
-      <Route path="/room" element={<Layout />} />
+      <Route path='/room' element={<Layout />}/>
+       
+       
     </Routes>
     </BrowserRouter>
    
