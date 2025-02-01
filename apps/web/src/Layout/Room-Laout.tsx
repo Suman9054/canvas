@@ -1,4 +1,4 @@
-import { Canvas,} from 'fabric';
+import { Canvas, CircleBrush, PencilBrush, } from 'fabric';
 import { 
   ArrowBigUpDash, BotIcon, BrushIcon, EraserIcon, 
   HandIcon, PenIcon, ShapesIcon, Share, Share2, TextQuote 
@@ -15,10 +15,11 @@ interface Button {
 }
 
 const Layout: React.FC = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
-  const [activeButton, setActiveButton] = useState<number>();
+  const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
+  const [activeButton, setActiveButton] = useState<number>(1);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvas, setCanvas] = useState<Canvas | null>(null);
+ 
   
   const buttons: Button[] = [
     { id: 1, label: <PenIcon /> },
@@ -58,30 +59,31 @@ const Layout: React.FC = () => {
 useEffect(()=>{
 if(!canvas)return;
 
+if (activeButton===1){
+  canvas.freeDrawingBrush = new PencilBrush(canvas);
+  canvas.isDrawingMode= true;
 
-
-const svgCursor = `
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pen"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/></svg>`;
-const encodedSvg = `data:image/svg+xml;base64,${btoa(svgCursor)}`;
- canvas.freeDrawingCursor = `url("${encodedSvg}"), pointer`;
+} else if (activeButton===2){
+  canvas.freeDrawingBrush = new PencilBrush(canvas);
  
- 
+}else if(activeButton===3){
+  canvas.freeDrawingBrush = new PencilBrush(canvas);
+ }else{
+  canvas.isDrawingMode= false ;
+ }
 
-},[activeButton===1])
+},[activeButton,canvas])
 useEffect(()=>{
-  if(!canvas)return;
-  const svgCursor = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-brush"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08"/><path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z"/></svg>
-    `;
-  const encodedSvg = `data:image/svg+xml;base64,${btoa(svgCursor)}`;
-  canvas.freeDrawingCursor = `url("${encodedSvg}"), pointer`;
-  },[activeButton===2])
-  useEffect(()=>{
-    if(!canvas)return;
-    const svgCursor = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eraser"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>
-      `;
-    const encodedSvg = `data:image/svg+xml;base64,${btoa(svgCursor)}`;
-    canvas.defaultCursor = `url("${encodedSvg}"), pointer`;
-    },[activeButton===3])
+  if (!canvas) return;
+  canvas.on('object:added', function(e) {
+    
+    if (canvas._activeObject) {
+        canvas._activeObject.setControlVisible('all', true);
+      }
+  });
+},[canvas])
+
+  
   return (
     <div className="h-screen w-full bg-gray-200 p-4">
       <div className="rounded-lg bg-white shadow-lg h-full overflow-hidden">
@@ -91,7 +93,7 @@ useEffect(()=>{
               key={button.id}
               onClick={() => {
                 setActiveButton(button.id);
-                setSidebarOpen(true);
+                
               }}
               className={`px-4 py-2 rounded-md transition-all duration-200 ${
                 activeButton === button.id
@@ -110,7 +112,7 @@ useEffect(()=>{
               ${isSidebarOpen ? 'w-64' : 'w-7'}`}
           >
             <div className="p-4">
-              <div className="w-full h-full bg-gray-50 border-b border-gray-200 px-4 grid grid-cols-2 gap-4">
+              <div className="w-full h-full bg-gray-50 border-b border-gray-200 px-4 ">
                 {/* Sidebar content */}
                {activeButton === 5 && <Shapes canvas={canvas} />}
                 {activeButton === 2 && <Brush />}
@@ -142,7 +144,18 @@ useEffect(()=>{
               />
             </div>
           </div>
-
+          <div
+            className="w-1 hover:bg-blue-200 cursor-col-resize relative group"
+            onClick={() => setSidebarOpen(!isSidebarOpen)}
+          >
+            <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2">
+              <div className="space-y-1">
+                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+              </div>
+            </div>
+          </div>
           <div
             className={`transition-all duration-300 ease-in-out border-l border-gray-400 bg-gray-50 
               ${isSidebarOpen ? 'w-64' : 'w-7'}`}
@@ -153,18 +166,8 @@ useEffect(()=>{
               </div>
             </div>
           </div>
-          <div
-            className="w-1 hover:bg-blue-200 cursor-col-resize relative group"
-            onClick={() => setSidebarOpen(!isSidebarOpen)}
-          >
-            <div className="absolute top-1/2 -translate-y-1/2 right-1/2 -translate-x-1/2">
-              <div className="space-y-1">
-                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-              </div>
-            </div>
-          </div>
+          
+          
         </div>
       </div>
     </div>

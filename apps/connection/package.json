@@ -1,0 +1,17 @@
+{
+  "name": "connection",
+  "version": "1.0.0",
+  "main": "dist/ws.js",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node dist/ws.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "socket.io": "^4.8.1",
+    "typescript": "^5.7.3"
+  }
+}

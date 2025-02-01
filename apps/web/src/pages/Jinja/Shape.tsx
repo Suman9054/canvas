@@ -1,5 +1,5 @@
 import { Rect, Circle, Path, Canvas, Polygon,  loadSVGFromString,  util } from 'fabric';
-import { RectangleEllipsis, Triangle, Circle as CircleIcon, Hexagon, DiamondIcon, Badge, RectangleVertical, HeartIcon, Pentagon, ArrowRight } from 'lucide-react';
+import { RectangleEllipsis, Triangle, Circle as CircleIcon, Hexagon, DiamondIcon, Badge,  HeartIcon, Pentagon, ArrowRight } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface ShapesProps {
@@ -227,7 +227,7 @@ const arro = async()=>{
   ];
 
   return (
-    <div className="flex flex-wrap  gap-2 ">
+    <div className=" grid grid-cols-3  gap-3 ">
       {buttons.map((b) => (
         <button
           key={b.id}
@@ -235,7 +235,7 @@ const arro = async()=>{
             setActiveButton(b.id); 
              b.onClick(); 
           }}
-          className={`px-4 py-2 rounded-md transition-all duration-200 ${
+          className={`px-4 py-2 rounded-md transition-all duration-200o   ${
             activeButton === b.id
               ? 'bg-blue-500 text-white shadow-md hover:bg-blue-600'
               : 'bg-gray-200 hover:bg-gray-300'

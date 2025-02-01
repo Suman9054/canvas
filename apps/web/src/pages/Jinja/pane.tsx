@@ -1,26 +1,47 @@
-import { Canvas } from "fabric";
-import React, { useEffect, useState } from "react";
+import { Canvas, } from "fabric";
+
+
+import React, { useEffect, ChangeEvent } from "react";
+
 
 
 export interface IAppProps {
     canvas: Canvas | null; 
 }
 
+
+
 export const Pen: React.FC<IAppProps> = ({ canvas }: IAppProps) => {
-  const [value,setvalue] = useState<number>(10);
+  
   useEffect(()=>{
     if(!canvas)return;
-    canvas.isDrawingMode = true;
-    if (canvas.freeDrawingBrush) {
-      canvas.freeDrawingBrush.width = value;
+    
+    if(canvas.freeDrawingBrush){
+      canvas.freeDrawingBrush.width=1;
+      canvas.freeDrawingBrush.color='rgb(2,6,23)'
     }
+    
+    
+    
   },[])
+  const onchange=(e: ChangeEvent<HTMLInputElement>)=>{
+      if(!canvas?.freeDrawingBrush) return;
+      console.log(e.target.value);
+      canvas.freeDrawingBrush.width = parseFloat(e.target.value);
+  } 
+ 
 
   return (
-    <div>
-      <input>hii
-      </input>
-    </div>
+    
+<div className="flex items-center justify-center">
+  <input type="number" className="w-full h-full border-none outline-none" onChange={onchange} defaultValue={1} min={1} max={10} />
+</div>
+    
+    
+
+     
+
+   
   );
 }
 
