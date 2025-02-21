@@ -16,7 +16,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
   const rect = () => {
     if (!canvas) return;
 
-    console.log('Canvas:', canvas);  
+     
 
     const rectangle = new Rect({
       left: canvasWidth / 2 - 50, 
@@ -34,14 +34,14 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
       ry:10,
     });
 
-    console.log('Adding rectangle:', rectangle);  
+      
     canvas.add(rectangle); 
     canvas.renderAll(); 
   };
   const rectt = () => {
     if (!canvas) return;
 
-    console.log('Canvas:', canvas);  
+     
 
     const rectangle = new Rect({
       left: canvasWidth / 2 - 50, 
@@ -67,7 +67,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
   const createCircle = () => {
     if (!canvas) return;
 
-    console.log('Creating circle...'); 
+    
 
     const circle = new Circle({
       left: canvasWidth / 2 - 25,
@@ -83,7 +83,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
       ry:10,
     });
 
-    console.log('Adding circle:', circle); 
+    
     canvas.add(circle);
     canvas.renderAll(); 
   };
@@ -92,7 +92,7 @@ const createpoligon = () =>{
     console.log('nocanva');
     return;
   }
-  console.log(`creating poligon ${canvas}`)
+  
   const hexagonPoints = [
     {x: 100, y: 0},
     {x: 200, y: 0},
@@ -114,7 +114,7 @@ const polygon = new Polygon(hexagonPoints, {
     height: 100,
 });
 canvas.add(polygon);
-console.log ('poligoan added');
+
 canvas.renderAll();
 }
   
