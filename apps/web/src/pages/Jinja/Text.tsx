@@ -1,4 +1,4 @@
-import React, { ChangeEvent,  useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Canvas, Textbox } from "fabric";
 import { Button } from "./component/button";
 import { Input } from "./component/Input";
@@ -23,11 +23,11 @@ export const Text: React.FC<IAppProps> = ({ canvas }) => {
       top: Math.random() * (canvas.height ?? 300 - 50),
       width: 150,
       fontSize,
-      fontFamily: 'Arial',
-      textAlign: 'center',
+      fontFamily: "Arial",
+      textAlign: "center",
       fill: textColor,
-      borderColor: '#2563eb',
-      cornerColor: '#2563eb',
+      borderColor: "#2563eb",
+      cornerColor: "#2563eb",
       cornerSize: 6,
       transparentCorners: false,
     });
@@ -36,31 +36,29 @@ export const Text: React.FC<IAppProps> = ({ canvas }) => {
     canvas.setActiveObject(textbox);
     setActiveTextbox(textbox);
 
-    textbox.on('modified', () => {
+    textbox.on("modified", () => {
       canvas.renderAll();
     });
 
-    textbox.on('selected', () => {
+    textbox.on("selected", () => {
       setActiveTextbox(textbox);
-      setText(textbox.text ?? '');
+      setText(textbox.text ?? "");
       setFontSize(textbox.fontSize ?? 20);
-      setTextColor(textbox.fill?.toString() ?? '#020617');
+      setTextColor(textbox.fill?.toString() ?? "#020617");
     });
 
-    textbox.on('deselected', () => {
+    textbox.on("deselected", () => {
       setActiveTextbox(null);
     });
 
     canvas.renderAll();
   };
 
-  
-
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newText = e.target.value;
     setText(newText);
     if (activeTextbox) {
-      activeTextbox.set('text', newText);
+      activeTextbox.set("text", newText);
       canvas?.renderAll();
     }
   };
@@ -69,7 +67,7 @@ export const Text: React.FC<IAppProps> = ({ canvas }) => {
     const newSize = value[0];
     setFontSize(newSize);
     if (activeTextbox) {
-      activeTextbox.set('fontSize', newSize);
+      activeTextbox.set("fontSize", newSize);
       canvas?.renderAll();
     }
   };
@@ -78,7 +76,7 @@ export const Text: React.FC<IAppProps> = ({ canvas }) => {
     const newColor = e.target.value;
     setTextColor(newColor);
     if (activeTextbox) {
-      activeTextbox.set('fill', newColor);
+      activeTextbox.set("fill", newColor);
       canvas?.renderAll();
     }
   };
@@ -128,7 +126,7 @@ export const Text: React.FC<IAppProps> = ({ canvas }) => {
             className="flex items-center gap-2 px-4 py-2 rounded-md bg-blue-500 text-white"
           >
             <PlusCircle className="w-4 h-4" />
-            Add 
+            Add
           </Button>
         </div>
       </div>

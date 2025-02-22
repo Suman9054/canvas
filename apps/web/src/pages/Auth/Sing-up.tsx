@@ -1,6 +1,5 @@
-
-import styled from 'styled-components';
-import { Link } from 'react-router';
+import styled from "styled-components";
+import { Link } from "react-router";
 const SingupForm = () => {
   return (
     <StyledWrapper>
@@ -13,28 +12,30 @@ const SingupForm = () => {
             <span>Firstname</span>
           </label>
           <label>
-            <input required placeholder='' type="text" className="input" />
+            <input required placeholder="" type="text" className="input" />
             <span>Lastname</span>
           </label>
-        </div>  
+        </div>
         <label>
-          <input required placeholder='' type="email" className="input" />
+          <input required placeholder="" type="email" className="input" />
           <span>Email</span>
-        </label> 
+        </label>
         <label>
-          <input required placeholder='' type="password" className="input" />
+          <input required placeholder="" type="password" className="input" />
           <span>Password</span>
         </label>
         <label>
-          <input required placeholder='' type="password" className="input" />
+          <input required placeholder="" type="password" className="input" />
           <span>Confirm password</span>
         </label>
         <button className="submit">Submit</button>
-        <p className="signin">Already have an acount ? <Link to="/v1/auth/login">Signin</Link> </p>
+        <p className="signin">
+          Already have an acount ? <Link to="/v1/auth/login">Signin</Link>{" "}
+        </p>
       </form>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .form {
@@ -59,7 +60,8 @@ const StyledWrapper = styled.div`
     padding-left: 30px;
   }
 
-  .title::before,.title::after {
+  .title::before,
+  .title::after {
     position: absolute;
     content: "";
     height: 16px;
@@ -81,7 +83,8 @@ const StyledWrapper = styled.div`
     animation: pulse 1s linear infinite;
   }
 
-  .message, .signin {
+  .message,
+  .signin {
     color: rgba(88, 87, 87, 0.822);
     font-size: 14px;
   }
@@ -131,7 +134,8 @@ const StyledWrapper = styled.div`
     font-size: 0.9em;
   }
 
-  .form label .input:focus + span,.form label .input:valid + span {
+  .form label .input:focus + span,
+  .form label .input:valid + span {
     top: 30px;
     font-size: 0.7em;
     font-weight: 600;
@@ -149,7 +153,7 @@ const StyledWrapper = styled.div`
     border-radius: 10px;
     color: #fff;
     font-size: 16px;
-    transform: .3s ease;
+    transform: 0.3s ease;
   }
 
   .submit:hover {
@@ -166,6 +170,7 @@ const StyledWrapper = styled.div`
       transform: scale(1.8);
       opacity: 0;
     }
-  }`;
+  }
+`;
 
 export default SingupForm;
