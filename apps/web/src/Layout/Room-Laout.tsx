@@ -11,7 +11,7 @@ import {
   Share2,
   TextQuote,
 } from "lucide-react";
-import { io } from "socket.io-client";
+
 import React, { useState, useRef, useEffect } from "react";
 import Shapes from "../pages/Jinja/Shape";
 import { Brush } from "../pages/Jinja/Brush";
@@ -19,6 +19,7 @@ import { Pen } from "../pages/Jinja/pane";
 import { Erasur } from "../pages/Jinja/Erasur";
 import { Colab } from "../pages/Jinja/Colab";
 import { Text } from "../pages/Jinja/Text";
+import Line_setting from "../sttings/line/line_setting";
 interface Button {
   id: number;
   label: React.ReactNode;
@@ -78,52 +79,15 @@ const Layout: React.FC = () => {
       canvas.isDrawingMode = false;
     }
   }, [activeButton, canvas]);
+  
   useEffect(() => {
-    if (!activeButton || !canvas) return;
-
-    // Create socket connection
-    const socket = io("localhost:3000", {
-      reconnectionDelay: 1000,
-      reconnection: true,
-      reconnectionAttempts: 10,
-      transports: ["websocket"],
-      agent: false,
-      upgrade: false,
-      rejectUnauthorized: false,
-    });
-
-    // Handle socket connection
-    socket.on("connect", () => {
-      console.log("Connected to server with ID:", socket.id);
-
-      // Add canvas event listener
-      const handleObjectAdded = (e: any) => {
-        if (e.target && typeof e.target.toObject === "function") {
-          const objectData = e.target.toObject();
-          socket.emit("message", objectData);
-          console.log("Object added:", objectData);
-        }
-      };
-
-      canvas.on("object:added", handleObjectAdded);
-      canvas.on("object:modified", handleObjectAdded);
-    });
-
-    // Error handling
-    socket.on("connect_error", (error) => {
-      console.error("Socket connection error:", error);
-    });
-
-    // Cleanup function
-    return () => {
-      if (canvas) {
-        canvas.off("object:added");
-        canvas.off("object:modified");
-      }
-      socket.disconnect();
-      console.log("Socket disconnected and cleanup complete");
-    };
-  }, [activeButton, canvas]);
+     if (!canvas) return;
+     canvas.on("object:added", (e) => {
+      canvas.setActiveObject(e.target);
+      canvas.renderAll();
+     });
+       
+  }, [canvas]);
 
   return (
     <div className="h-screen w-full bg-gray-200 p-4">
@@ -206,6 +170,7 @@ const Layout: React.FC = () => {
             <div className="p-4">
               <div className="space-y-4 bg-gray-300">
                 {/* Sidebar content */}
+                <Line_setting canvas={canvas} />
               </div>
             </div>
           </div>
