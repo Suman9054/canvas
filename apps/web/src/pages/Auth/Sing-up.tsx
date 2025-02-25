@@ -1,11 +1,79 @@
 import styled from "styled-components";
 import { Link } from "react-router";
-const SingupForm = () => {
+import { useState } from "react";
+import axios from "axios";
+
+const SignupForm = () => {
+  const [error, setError] = useState("");
+  const [read, setRead] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setRead(false);
+
+    const form = e.target as HTMLFormElement;
+
+    try {
+      const firstName = (form[0] as HTMLInputElement).value;
+      const lastName = (form[1] as HTMLInputElement).value;
+      const email = (form[2] as HTMLInputElement).value;
+      const password = (form[3] as HTMLInputElement).value;
+      const confirmPassword = (form[4] as HTMLInputElement).value;
+      const name = firstName + lastName;
+      // Validate all fields are filled
+
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        setError("Please enter a valid email address");
+        setRead(true);
+        (form[2] as HTMLInputElement).value = ""; // Clear email field
+        return;
+      }
+      if (password.length < 4 || password.length > 8) {
+        setError("Password must be between 4 and 8 characters");
+        setRead(true);
+        (form[3] as HTMLInputElement).value = "";
+        (form[4] as HTMLInputElement).value = "";
+        return;
+      }
+
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        setError("Password does not match");
+        setRead(true);
+        (form[4] as HTMLInputElement).value = ""; // Clear confirm password field
+        return;
+      }
+
+      await axios
+        .post("http://localhost:3000/api/v1/login-signup/signup", {
+          email: email,
+          password: password,
+          name: name,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            window.location.href = "/home";
+          } else {
+            setError(res.data);
+            setRead(true);
+          }
+        });
+    } catch (e) {
+      console.log("Error:", e);
+      setError("Something went wrong. Please try again.");
+      setRead(true);
+    }
+  };
+
   return (
     <StyledWrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <p className="title">Register </p>
         <p className="message">Signup now and get full access to our app. </p>
+
+        {read && error && <div className="error-message">{error}</div>}
+
         <div className="flex">
           <label>
             <input required placeholder="" type="text" className="input" />
@@ -105,6 +173,10 @@ const StyledWrapper = styled.div`
     display: flex;
     width: 100%;
     gap: 6px;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+    }
   }
 
   .form label {
@@ -160,6 +232,16 @@ const StyledWrapper = styled.div`
     background-color: rgb(56, 90, 194);
   }
 
+  .error-message {
+    background-color: #ffebee;
+    color: #ff3333;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
   @keyframes pulse {
     from {
       transform: scale(0.9);
@@ -171,6 +253,17 @@ const StyledWrapper = styled.div`
       opacity: 0;
     }
   }
+
+  @media (max-width: 480px) {
+    .form {
+      width: 100%;
+      padding: 15px;
+    }
+
+    .title {
+      font-size: 24px;
+    }
+  }
 `;
 
-export default SingupForm;
+export default SignupForm;

@@ -1,32 +1,48 @@
 import styled from "styled-components";
 import { Link } from "react-router";
 import axios from "axios";
-
-const onclick = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  const form = e.target as HTMLFormElement;
-
-  try {
-    const email = (form[0] as HTMLInputElement).value;
-    const password = (form[1] as HTMLInputElement).value;
-    axios
-      .get("http://localhost:3000/api/v1/login-signup/login", {
-        params: {
-          email: email,
-          password: password,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          console.log("Login success", res.data);
-        }
-      });
-  } catch (error) {
-    console.log("error", error);
-  }
-};
+import { useState } from "react";
 
 const LoginForm = () => {
+  const [error, setError] = useState("");
+  const [read, setRead] = useState(false);
+  const onclick = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+    setRead(false);
+    const form = e.target as HTMLFormElement;
+
+    try {
+      const email = (form[0] as HTMLInputElement).value;
+      const password = (form[1] as HTMLInputElement).value;
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        setError("Please enter a valid email address");
+        setRead(true);
+        (form[0] as HTMLInputElement).value = ""; // Clear email field
+        return;
+      }
+      if (password.length < 4 || password.length > 8) {
+        setError("Password must be between 4 and 8 characters");
+        setRead(true);
+        (form[1] as HTMLInputElement).value = "";
+        return;
+      }
+      await axios
+        .post("http://localhost:3000/api/v1/login-signup/login", {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            window.location.href = "/home";
+          } else {
+            console.log(res.data);
+          }
+        });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   return (
     <StyledWrapper>
       <form className="form_container" onSubmit={onclick}>
@@ -38,6 +54,7 @@ const LoginForm = () => {
             experience.
           </span>
         </div>
+        {read && error && <div className="error-message">{error}</div>}
         <br />
         <div className="input_container">
           <label className="input_label" htmlFor="email_field">
@@ -330,6 +347,15 @@ const StyledWrapper = styled.div`
     height: 1px;
     border: 0;
     background-color: #e8e8e8;
+  }
+  .error-message {
+    background-color: #ffebee;
+    color: #ff3333;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 14px;
   }
 
   .note {
