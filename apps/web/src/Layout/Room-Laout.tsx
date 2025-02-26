@@ -20,6 +20,7 @@ import { Erasur } from "../pages/Jinja/Erasur";
 import { Colab } from "../pages/Jinja/Colab";
 import { Text } from "../pages/Jinja/Text";
 import Line_setting from "../sttings/line/line_setting";
+import { TextboxSettings } from "../sttings/textbox/textbox_setting";
 interface Button {
   id: number;
   label: React.ReactNode;
@@ -86,7 +87,9 @@ const Layout: React.FC = () => {
       canvas.setActiveObject(e.target);
       canvas.renderAll();
      });
-       
+     return () => {
+        canvas.off("object:added");
+      }       
   }, [canvas]);
 
   return (
@@ -168,9 +171,10 @@ const Layout: React.FC = () => {
               ${isSidebarOpen ? "w-64" : "w-7"}`}
           >
             <div className="p-4">
-              <div className="space-y-4 bg-gray-300">
-                {/* Sidebar content */}
+              <div className="space-y-1 bg-gray-300 ">
+                
                 <Line_setting canvas={canvas} />
+              {canvas?._activeObject?.isType("textbox") === true && (<TextboxSettings canvas={canvas} />)}  
               </div>
             </div>
           </div>

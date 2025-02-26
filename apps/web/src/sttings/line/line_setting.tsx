@@ -6,7 +6,7 @@ export interface IAppProps {
 }
 
 export default function LineSettings({ canvas }: IAppProps) {
-  const [color, setColor] = useState("rgb(2,6,23)");
+  const [color, setColor] = useState("#020617");
   const [strokeWidth, setStrokeWidth] = useState(2);
   const [opacity, setOpacity] = useState(1);
   
@@ -25,7 +25,6 @@ export default function LineSettings({ canvas }: IAppProps) {
         opacity: opacity
       });
       
-     
       
       canvas.renderAll();
     }
@@ -40,7 +39,7 @@ export default function LineSettings({ canvas }: IAppProps) {
       if (!selectedObject) return;
       
       if ('stroke' in selectedObject) {
-        setColor(selectedObject.stroke || "rgb(2,6,23)");
+        setColor(selectedObject.stroke || "#020617");
         setStrokeWidth(selectedObject.strokeWidth || 2);
         setOpacity(selectedObject.opacity || 1);
         
@@ -59,13 +58,13 @@ export default function LineSettings({ canvas }: IAppProps) {
   }, [canvas]);
 
   return (
-    <div className="p-4 bg-white rounded shadow">
-      <h3 className="text-lg font-medium mb-3">Line Settings</h3>
+    <div className="p-3 bg-white rounded shadow">
+      <h3 className="text-lg font-medium mb-3">Stoke Settings</h3>
       
-      <div className="space-y-4">
+      <div className="space-y-3">
         
         <div>
-          <label className="block text-sm mb-1">Line Color</label>
+          <label className="block text-sm mb-1">Stoke Color</label>
           <div className="flex items-center">
             <input
               type="color"
@@ -81,7 +80,7 @@ export default function LineSettings({ canvas }: IAppProps) {
         
         
         <div>
-          <label className="block text-sm mb-1">Line Width: {strokeWidth}px</label>
+          <label className="block text-sm mb-1">Stoke Width: {strokeWidth}px</label>
           <input
             type="range"
             min="1"
