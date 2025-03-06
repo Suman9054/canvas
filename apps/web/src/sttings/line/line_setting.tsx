@@ -24,7 +24,17 @@ export default function LineSettings({ canvas }: IAppProps) {
         strokeWidth: strokeWidth,
         opacity: opacity
       });
-      
+     activeObject._controlsVisibility = {
+        mt: false, // middle top
+        mb: false, // middle bottom
+        ml: false, // middle left
+        mr: false, // middle right
+        tl: false, // top left
+        tr: false, // top right
+        bl: false, // bottom left
+        br: false  // bottom right
+     };
+     
       
       canvas.renderAll();
     }

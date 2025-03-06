@@ -16,6 +16,12 @@ export const Pen: React.FC<IAppProps> = ({ canvas }: IAppProps) => {
       canvas.freeDrawingBrush.width = 1;
       canvas.freeDrawingBrush.color = "rgb(2,6,23)";
     }
+    const activeTool = canvas.getActiveObject();
+    if (activeTool) {
+      
+      console.log(activeTool);
+      
+    }
   }, []);
   const onchange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!canvas?.freeDrawingBrush) return;

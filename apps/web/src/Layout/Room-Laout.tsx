@@ -83,12 +83,24 @@ const Layout: React.FC = () => {
   
   useEffect(() => {
      if (!canvas) return;
-     canvas.on("object:added", (e) => {
+     canvas.on("path:created",(e)=>{
+      canvas.setActiveObject(e.path);
+      
+      console.log(canvas._activeObject);
+       if(canvas._activeObject){
+        canvas._activeObject.borderColor = "rgb(209,213,219)";
+        canvas._activeObject.cornerColor = "rgb(209,213,219)";
+        }
+        canvas.renderAll();
+     })
+    canvas.on("object:added",(e)=>{
       canvas.setActiveObject(e.target);
+      
       canvas.renderAll();
-     });
+     })
      return () => {
         canvas.off("object:added");
+        canvas.off("path:created");
       }       
   }, [canvas]);
 

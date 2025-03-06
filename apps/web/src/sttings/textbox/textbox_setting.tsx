@@ -58,6 +58,9 @@ export function TextboxSettings({ canvas }: IAppProps) {
       fontStyle: italic ? 'italic' : 'normal',
       underline: underline
     });
+    canvas._activeObject.hasControls = true;
+    canvas._activeObject.hasBorders = true;
+    
     
     canvas.renderAll();
   };
