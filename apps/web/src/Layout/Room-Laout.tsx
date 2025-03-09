@@ -1,6 +1,5 @@
-import { Canvas, PencilBrush } from "fabric";
+import {  Canvas, PencilBrush } from "fabric";
 import {
-  ArrowBigUpDash,
   BotIcon,
   BrushIcon,
   EraserIcon,
@@ -10,6 +9,7 @@ import {
   Share,
   Share2,
   TextQuote,
+  Videotape,
 } from "lucide-react";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -27,19 +27,22 @@ interface Button {
   onClick?: () => void;
 }
 
+
+
 const Layout: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
   const [activeButton, setActiveButton] = useState<number>(1);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvas, setCanvas] = useState<Canvas | null>(null);
-
-  const buttons: Button[] = [
+  const [textbox, settextbox] = useState<boolean>(false);
+  const[path_setting,set_path_setting] = useState<boolean>(false);
+   const buttons: Button[] = [
     { id: 1, label: <PenIcon /> },
     { id: 2, label: <BrushIcon /> },
     { id: 3, label: <EraserIcon /> },
     { id: 4, label: <TextQuote /> },
     { id: 5, label: <ShapesIcon /> },
-    { id: 6, label: <ArrowBigUpDash /> },
+    { id: 6, label: <Videotape/> },
     { id: 7, label: <HandIcon /> },
     { id: 8, label: <BotIcon /> },
     { id: 9, label: <Share /> },
@@ -75,33 +78,42 @@ const Layout: React.FC = () => {
     } else if (activeButton === 2) {
       canvas.freeDrawingBrush = new PencilBrush(canvas);
     } else if (activeButton === 3) {
-      canvas.freeDrawingBrush = new PencilBrush(canvas);
+      canvas.freeDrawingBrush =  new PencilBrush(canvas);
+      
     } else {
       canvas.isDrawingMode = false;
     }
   }, [activeButton, canvas]);
-  
+
   useEffect(() => {
-     if (!canvas) return;
-     canvas.on("path:created",(e)=>{
+    if (!canvas) return;
+    canvas.on("path:created", (e) => {
       canvas.setActiveObject(e.path);
-      
-      console.log(canvas._activeObject);
-       if(canvas._activeObject){
+
+      if (canvas._activeObject) {
         canvas._activeObject.borderColor = "rgb(209,213,219)";
         canvas._activeObject.cornerColor = "rgb(209,213,219)";
-        }
-        canvas.renderAll();
-     })
-    canvas.on("object:added",(e)=>{
-      canvas.setActiveObject(e.target);
-      
+      }
       canvas.renderAll();
-     })
-     return () => {
-        canvas.off("object:added");
-        canvas.off("path:created");
-      }       
+    });
+    canvas.on("object:added", (e) => {
+      canvas.setActiveObject(e.target);
+      if ( canvas._activeObject) {
+        canvas._activeObject.borderColor = "rgb(16, 138, 79)";
+        canvas._activeObject.cornerColor = "rgb(16,138,79)";
+        console.log(canvas._activeObject.type);
+        if(canvas._activeObject.type == "textbox"){
+        settextbox(true);
+        }if(canvas._activeObject.type == "path"){
+          set_path_setting(true);
+        }
+      }
+      canvas.renderAll();
+    });
+    return () => {
+      canvas.off("object:added");
+      canvas.off("path:created");
+    };
   }, [canvas]);
 
   return (
@@ -184,9 +196,8 @@ const Layout: React.FC = () => {
           >
             <div className="p-4">
               <div className="space-y-1 bg-gray-300 ">
-                
-                <Line_setting canvas={canvas} />
-              {canvas?._activeObject?.isType("textbox") === true && (<TextboxSettings canvas={canvas} />)}  
+               {path_setting && <Line_setting canvas={canvas} />}
+                {textbox && <TextboxSettings canvas={canvas} />}
               </div>
             </div>
           </div>

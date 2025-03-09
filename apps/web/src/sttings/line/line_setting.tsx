@@ -9,70 +9,52 @@ export default function LineSettings({ canvas }: IAppProps) {
   const [color, setColor] = useState("#020617");
   const [strokeWidth, setStrokeWidth] = useState(2);
   const [opacity, setOpacity] = useState(1);
-  
-  
+
   useEffect(() => {
     if (!canvas || !canvas._activeObject) return;
-    
+
     const activeObject = canvas._activeObject;
-    
-  
-    if ('stroke' in activeObject) {
-      
-      activeObject.set({ 
+
+    if ("stroke" in activeObject) {
+      activeObject.set({
         stroke: color,
         strokeWidth: strokeWidth,
-        opacity: opacity
+        opacity: opacity,
       });
-     activeObject._controlsVisibility = {
-        mt: false, // middle top
-        mb: false, // middle bottom
-        ml: false, // middle left
-        mr: false, // middle right
-        tl: false, // top left
-        tr: false, // top right
-        bl: false, // bottom left
-        br: false  // bottom right
-     };
      
-      
+
       canvas.renderAll();
     }
-  }, [color, strokeWidth,  opacity, canvas]);
-  
- 
+  }, [color, strokeWidth, opacity, canvas]);
+
   useEffect(() => {
     if (!canvas) return;
-    
+
     const handleSelectionCreated = (e: any) => {
       const selectedObject = e.selected?.[0];
       if (!selectedObject) return;
-      
-      if ('stroke' in selectedObject) {
+
+      if ("stroke" in selectedObject) {
         setColor(selectedObject.stroke || "#020617");
         setStrokeWidth(selectedObject.strokeWidth || 2);
         setOpacity(selectedObject.opacity || 1);
-        
-        
-       
       }
     };
-    
-    canvas.on('selection:created', handleSelectionCreated);
-    canvas.on('selection:updated', handleSelectionCreated);
-    
+
+    canvas.on("selection:created", handleSelectionCreated);
+    canvas.on("selection:updated", handleSelectionCreated);
+
     return () => {
-      canvas.off('selection:created', handleSelectionCreated);
-      canvas.off('selection:updated', handleSelectionCreated);
+      canvas.off("selection:created", handleSelectionCreated);
+      canvas.off("selection:updated", handleSelectionCreated);
     };
   }, [canvas]);
 
   return (
     <div className="p-3 bg-white rounded shadow">
       <h3 className="text-lg font-medium mb-3">Stoke Settings</h3>
-      
+
       <div className="space-y-3">
-        
         <div>
           <label className="block text-sm mb-1">Stoke Color</label>
           <div className="flex items-center">
@@ -87,10 +69,11 @@ export default function LineSettings({ canvas }: IAppProps) {
             <span className="ml-2 text-sm font-mono">{color}</span>
           </div>
         </div>
-        
-        
+
         <div>
-          <label className="block text-sm mb-1">Stoke Width: {strokeWidth}px</label>
+          <label className="block text-sm mb-1">
+            Stoke Width: {strokeWidth}px
+          </label>
           <input
             type="range"
             min="1"
@@ -100,13 +83,11 @@ export default function LineSettings({ canvas }: IAppProps) {
             onChange={(e) => setStrokeWidth(parseInt(e.target.value))}
           />
         </div>
-        
-        
-       
-        
-       
+
         <div>
-          <label className="block text-sm mb-1">Opacity: {Math.round(opacity * 100)}%</label>
+          <label className="block text-sm mb-1">
+            Opacity: {Math.round(opacity * 100)}%
+          </label>
           <input
             type="range"
             min="0"

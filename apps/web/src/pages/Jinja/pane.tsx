@@ -18,9 +18,7 @@ export const Pen: React.FC<IAppProps> = ({ canvas }: IAppProps) => {
     }
     const activeTool = canvas.getActiveObject();
     if (activeTool) {
-      
       console.log(activeTool);
-      
     }
   }, []);
   const onchange = (e: ChangeEvent<HTMLInputElement>) => {
