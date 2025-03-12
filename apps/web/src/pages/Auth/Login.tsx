@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import axios from "axios";
 import { useState } from "react";
 
@@ -34,13 +34,13 @@ const LoginForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            window.location.href = "/home";
+            <Navigate to ="/home"/>
           } else {
-            console.log(res.data);
+            setError(res.data);
           }
         });
     } catch (error) {
-      console.log("error", error);
+      setError(error instanceof Error ? error.message : 'An error occurred')
     }
   };
   return (

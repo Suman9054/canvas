@@ -19,8 +19,8 @@ import { Pen } from "../pages/Jinja/pane";
 import { Erasur } from "../pages/Jinja/Erasur";
 import { Colab } from "../pages/Jinja/Colab";
 import { Text } from "../pages/Jinja/Text";
-import Line_setting from "../sttings/line/line_setting";
-import { TextboxSettings } from "../sttings/textbox/textbox_setting";
+import Line_setting from "../utils/sttings/line/line_setting";
+import { TextboxSettings } from "../utils/sttings/textbox/textbox_setting";
 interface Button {
   id: number;
   label: React.ReactNode;
