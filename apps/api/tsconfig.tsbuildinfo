@@ -1,1 +1,0 @@
-{"root":["./src/index.ts","./src/middelware/incript.ts","./src/middelware/jwt.ts","./src/routes/cloudnary/index.ts","./src/routes/v1/login-sing up/index.ts"],"version":"5.7.3"}

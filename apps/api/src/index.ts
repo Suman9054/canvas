@@ -1,6 +1,5 @@
 import Express from "express";
 import cors from "cors";
-import "dotenv/config";
 import { srouter } from "./routes/v1/login-sing up";
 import { cloudinaryRouter } from "./routes/cloudnary";
 

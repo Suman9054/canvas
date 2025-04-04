@@ -77,12 +77,14 @@ const Layout: React.FC = () => {
       canvas.isDrawingMode = true;
     } else if (activeButton === 2) {
       canvas.freeDrawingBrush = new PencilBrush(canvas);
+      canvas.isDrawingMode = true;
     } else if (activeButton === 3) {
       canvas.freeDrawingBrush =  new PencilBrush(canvas);
-      
+      canvas.isDrawingMode = true;
     } else {
       canvas.isDrawingMode = false;
     }
+    canvas.renderAll();
   }, [activeButton, canvas]);
 
   useEffect(() => {
@@ -91,9 +93,15 @@ const Layout: React.FC = () => {
       canvas.setActiveObject(e.path);
 
       if (canvas._activeObject) {
+        console.log(canvas._activeObject.type);
         canvas._activeObject.borderColor = "rgb(209,213,219)";
         canvas._activeObject.cornerColor = "rgb(209,213,219)";
+        canvas._activeObject.set({
+          selectable: false,
+        });
       }
+     
+      
       canvas.renderAll();
     });
     canvas.on("object:added", (e) => {
@@ -106,6 +114,10 @@ const Layout: React.FC = () => {
         settextbox(true);
         }if(canvas._activeObject.type == "path"){
           set_path_setting(true);
+          canvas._activeObject.set({
+            selectable: false 
+          })
+          settextbox(false);
         }
       }
       canvas.renderAll();

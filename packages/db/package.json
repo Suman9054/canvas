@@ -1,21 +1,19 @@
 {
   "name": "@repo/db",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "tsc -b"
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "exports":{
+    ".":"./index.ts"
   },
-  "exports": {
-    "./client": "./src/db.ts",
-    "./src/db": "./dist/db.js"
+  "devDependencies": {
+    "@types/bun": "latest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "peerDependencies": {
+    "typescript": "^5"
+  },
   "dependencies": {
-    "@prisma/client": "^6.4.1",
-    "prisma": "^6.4.1"
+    "@prisma/client": "^6.5.0",
+    "prisma": "^6.5.0"
   }
 }
-

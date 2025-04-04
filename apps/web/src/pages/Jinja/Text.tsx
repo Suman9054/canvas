@@ -5,7 +5,7 @@ import { Input } from "./component/Input";
 import { Slider } from "./component/slidebur";
 import { PlusCircle } from "lucide-react";
 
-export interface IAppProps {
+ interface IAppProps {
   canvas: Canvas | null;
 }
 

@@ -1,10 +1,10 @@
-import { Router, Request, Response } from "express";
-import client from "@repo/db/src/db";
+import { Router } from "express";
+import client from "@repo/db";
 import { compare, incript } from "../../../middelware/incript";
 import { jwttoken, jwtverify } from "../../../middelware/jwt";
 
 export const srouter = Router();
-srouter.post("/login", async (req: Request, res: Response) => {
+srouter.post("/login", async (req,res) => {
   try {
     const { email, password } = req.body;
 

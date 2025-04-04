@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { v2 as cloudinary } from "cloudinary";
-import client from "@repo/db/src/db";
+import client from "@repo/db";
 export const cloudinaryRouter = Router();
 
 cloudinary.config({

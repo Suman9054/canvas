@@ -2,7 +2,7 @@ import { Canvas } from "fabric";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-export interface IAppProps {
+ interface IAppProps {
   canvas: Canvas | null;
 }
 
@@ -15,6 +15,7 @@ export const Erasur: React.FC<IAppProps> = ({ canvas }: IAppProps) => {
     if (canvas.freeDrawingBrush) {
       canvas.freeDrawingBrush.width = 5;
       canvas.freeDrawingBrush.color = "rgb(209,213,219)";
+      canvas.selection = false;
     }
   }, []);
 
