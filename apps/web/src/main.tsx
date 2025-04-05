@@ -10,23 +10,21 @@ import Auth from "./Layout/Auth-Layout";
 import HomeIndex from "./pages/Home/Home-Index";
 import Layout from "./Layout/Room-Laout";
 
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="*" element={<h1>Not Found</h1>} />
-        
-          <Route element={<FileManager />}>
-           <Route path="/home" element={<HomeIndex />} />
-          </Route>
-          <Route element={<Auth />}>
+
+        <Route element={<FileManager />}>
+          <Route path="/home" element={<HomeIndex />} />
+        </Route>
+        <Route element={<Auth />}>
           <Route path="/v1/auth/login" element={<LoginForm />} />
-           <Route path="/v1/auth/register" element={<SingupForm />} />
-          </Route>
-           <Route path="/room" element={<Layout />} />
-           
+          <Route path="/v1/auth/register" element={<SingupForm />} />
+        </Route>
+        <Route path="/room" element={<Layout />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

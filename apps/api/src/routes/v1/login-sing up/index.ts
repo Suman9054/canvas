@@ -4,7 +4,7 @@ import { compare, incript } from "../../../middelware/incript";
 import { jwttoken, jwtverify } from "../../../middelware/jwt";
 
 export const srouter = Router();
-srouter.post("/login", async (req,res) => {
+srouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 

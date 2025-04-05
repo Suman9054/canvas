@@ -21,7 +21,6 @@ export default function LineSettings({ canvas }: IAppProps) {
         strokeWidth: strokeWidth,
         opacity: opacity,
       });
-     
 
       canvas.renderAll();
     }

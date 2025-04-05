@@ -47,6 +47,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
       angle: 90,
       rx: 10,
       ry: 10,
+      id: `rect-${Math.random().toString(36).substr(2, 9)}`,
     });
 
     canvas.add(rectangle);
@@ -69,9 +70,9 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
       angle: 45,
       rx: 10,
       ry: 10,
+      id: `rect-${Math.random().toString(36).substr(2, 9)}`,
     });
 
-    console.log("Adding rectangle:", rectangle);
     canvas.add(rectangle);
     canvas.renderAll();
   };
@@ -91,6 +92,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
       strokeLineCap: "round",
       rx: 10,
       ry: 10,
+      id: `circle-${Math.random().toString(36).substr(2, 9)}`,
     });
 
     canvas.add(circle);
@@ -140,9 +142,9 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
       flipX: true,
       strokeLineJoin: "miter",
       strokeLineCap: "round",
+      id: `triangel-${Math.random().toString(36).substr(2, 9)}`,
     });
 
-    console.log("Adding triangle:", triangle);
     canvas.add(triangle);
     canvas.renderAll();
   };
@@ -163,6 +165,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
 
         left: canvasWidth / 2 - 50,
         top: canvasHeight / 2 - 50,
+        id: `svg-${Math.random().toString(36).substr(2, 9)}`,
       });
       canvas.add(svgobj);
       canvas.renderAll();
@@ -187,6 +190,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
 
         left: canvasWidth / 2 - 50,
         top: canvasHeight / 2 - 50,
+        id: `svg-${Math.random().toString(36).substr(2, 9)}`,
       });
       canvas.add(svgobj);
       canvas.renderAll();
@@ -211,6 +215,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
 
         left: canvasWidth / 2 - 50,
         top: canvasHeight / 2 - 50,
+        id: `svg-${Math.random().toString(36).substr(2, 9)}`,
       });
       canvas.add(svgobj);
       canvas.renderAll();
@@ -235,6 +240,7 @@ const Shapes: React.FC<ShapesProps> = ({ canvas }) => {
 
         left: canvasWidth / 2 - 50,
         top: canvasHeight / 2 - 50,
+        id: `svg-${Math.random().toString(36).substr(2, 9)}`,
       });
       canvas.add(svgobj);
       canvas.renderAll();

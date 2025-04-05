@@ -34,13 +34,13 @@ const LoginForm = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            <Navigate to ="/home"/>
+            <Navigate to="/home" />;
           } else {
             setError(res.data);
           }
         });
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'An error occurred')
+      setError(error instanceof Error ? error.message : "An error occurred");
     }
   };
   return (

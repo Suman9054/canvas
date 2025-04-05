@@ -1,7 +1,7 @@
 import { Canvas, Shadow } from "fabric";
 import { ChangeEvent, useEffect, useState } from "react";
 
- interface IAppProps {
+interface IAppProps {
   canvas: Canvas | null;
 }
 

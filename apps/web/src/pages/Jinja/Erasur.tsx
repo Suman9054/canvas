@@ -2,7 +2,7 @@ import { Canvas } from "fabric";
 
 import React, { ChangeEvent, useEffect, useState } from "react";
 
- interface IAppProps {
+interface IAppProps {
   canvas: Canvas | null;
 }
 

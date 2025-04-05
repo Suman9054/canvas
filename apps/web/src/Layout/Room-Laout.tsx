@@ -1,4 +1,4 @@
-import {  Canvas, PencilBrush } from "fabric";
+import { Canvas, PencilBrush } from "fabric";
 import {
   BotIcon,
   BrushIcon,
@@ -6,8 +6,8 @@ import {
   HandIcon,
   PenIcon,
   ShapesIcon,
-  Share,
   Share2,
+  Layers,
   TextQuote,
   Videotape,
 } from "lucide-react";
@@ -21,13 +21,13 @@ import { Colab } from "../pages/Jinja/Colab";
 import { Text } from "../pages/Jinja/Text";
 import Line_setting from "../utils/sttings/line/line_setting";
 import { TextboxSettings } from "../utils/sttings/textbox/textbox_setting";
+import { Layer_s } from "../pages/Jinja/Layer";
+
 interface Button {
   id: number;
   label: React.ReactNode;
   onClick?: () => void;
 }
-
-
 
 const Layout: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState<boolean>(true);
@@ -35,17 +35,17 @@ const Layout: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [canvas, setCanvas] = useState<Canvas | null>(null);
   const [textbox, settextbox] = useState<boolean>(false);
-  const[path_setting,set_path_setting] = useState<boolean>(false);
-   const buttons: Button[] = [
+  const [path_setting, set_path_setting] = useState<boolean>(false);
+  const buttons: Button[] = [
     { id: 1, label: <PenIcon /> },
     { id: 2, label: <BrushIcon /> },
     { id: 3, label: <EraserIcon /> },
     { id: 4, label: <TextQuote /> },
     { id: 5, label: <ShapesIcon /> },
-    { id: 6, label: <Videotape/> },
+    { id: 6, label: <Videotape /> },
     { id: 7, label: <HandIcon /> },
     { id: 8, label: <BotIcon /> },
-    { id: 9, label: <Share /> },
+    { id: 9, label: <Layers /> },
     { id: 10, label: <Share2 /> },
   ];
 
@@ -79,7 +79,7 @@ const Layout: React.FC = () => {
       canvas.freeDrawingBrush = new PencilBrush(canvas);
       canvas.isDrawingMode = true;
     } else if (activeButton === 3) {
-      canvas.freeDrawingBrush =  new PencilBrush(canvas);
+      canvas.freeDrawingBrush = new PencilBrush(canvas);
       canvas.isDrawingMode = true;
     } else {
       canvas.isDrawingMode = false;
@@ -100,23 +100,23 @@ const Layout: React.FC = () => {
           selectable: false,
         });
       }
-     
-      
+
       canvas.renderAll();
     });
     canvas.on("object:added", (e) => {
       canvas.setActiveObject(e.target);
-      if ( canvas._activeObject) {
+      if (canvas._activeObject) {
         canvas._activeObject.borderColor = "rgb(16, 138, 79)";
         canvas._activeObject.cornerColor = "rgb(16,138,79)";
         console.log(canvas._activeObject.type);
-        if(canvas._activeObject.type == "textbox"){
-        settextbox(true);
-        }if(canvas._activeObject.type == "path"){
+        if (canvas._activeObject.type == "textbox") {
+          settextbox(true);
+        }
+        if (canvas._activeObject.type == "path") {
           set_path_setting(true);
           canvas._activeObject.set({
-            selectable: false 
-          })
+            selectable: false,
+          });
           settextbox(false);
         }
       }
@@ -163,6 +163,7 @@ const Layout: React.FC = () => {
                 {activeButton === 3 && <Erasur canvas={canvas} />}
                 {activeButton === 7 && <Colab />}
                 {activeButton === 4 && <Text canvas={canvas} />}
+                {activeButton === 9 && <Layer_s canvas={canvas} />}
               </div>
             </div>
           </div>
@@ -208,7 +209,7 @@ const Layout: React.FC = () => {
           >
             <div className="p-4">
               <div className="space-y-1 bg-gray-300 ">
-               {path_setting && <Line_setting canvas={canvas} />}
+                {path_setting && <Line_setting canvas={canvas} />}
                 {textbox && <TextboxSettings canvas={canvas} />}
               </div>
             </div>
